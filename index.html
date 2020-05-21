@@ -10,13 +10,22 @@
 			"ask": "https://www.ask.com/web"
 		}
 		function setSearchEngine() {
-			let selectedSearchEngine = document.querySelector("input[name=engine]:checked").value;
-			// if (selectedSearchEngine === undefined) {
-			// 	alert("Please select a search engine from the list.");
-			// 	event.preventDefault();
-			// }
-			document.getElementById("searchForm").action = actions[selectedSearchEngine];
+			let selectedSearchEngine = document.querySelector("input[name=engine]:checked");
+			let query = document.querySelector("input[name=q]").value;
+			//LINES 16-23 VALIDATE THAT A SEARCH ENGINE IS SELECTED AND A QUERY HAS BEEN PROVIDED
+			if (selectedSearchEngine === null || query === "") {
+				if (selectedSearchEngine === null) {
+					alert("Please select a search engine from the list.");
+					event.preventDefault();
+				} else if (query === "") {
+					alert("Please provide a query.");
+					event.preventDefault();
+				}
+			} else {
+				document.getElementById("searchForm").action = actions[selectedSearchEngine.value];
+			}
 		}
+
 		window.addEventListener("load", function(){
 			let form = document.querySelector("form");
 			form.onsubmit = setSearchEngine;
